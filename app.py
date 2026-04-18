@@ -221,7 +221,6 @@ demo_codes = [
 ]
 
 def get_practice_exercises(lesson_num):
-    # Full exercises for all 20 lessons (same as previous correct version)
     exercises = {
         1: [
             {"desc": "Print 'Welcome to Python'", "solution": "print('Welcome to Python')"},
@@ -364,7 +363,7 @@ def get_practice_exercises(lesson_num):
             {"desc": "Create a menu-driven calculator that asks user for operation and numbers", "solution": "def calculator():\n    print('1. Add\\n2. Subtract\\n3. Multiply\\n4. Divide')\n    choice = input('Choose operation: ')\n    a = float(input('First number: '))\n    b = float(input('Second number: '))\n    if choice == '1':\n        print(a + b)\n    elif choice == '2':\n        print(a - b)\n    elif choice == '3':\n        print(a * b)\n    elif choice == '4':\n        if b != 0:\n            print(a / b)\n        else:\n            print('Cannot divide by zero')\n    else:\n        print('Invalid choice')\ncalculator()"}
         ]
     }
-    return exercises.get(lesson_num, exercises[1])  # fallback to lesson 1 if not found
+    return exercises.get(lesson_num, exercises[1])
 
 def build_lesson(num):
     return {
@@ -408,7 +407,6 @@ with tab1:
     st.markdown("---")
     st.subheader("🎬 Demo Code")
     st.code(lesson['demo_code'], language="python")
-    # Audio for demo code description
     demo_audio_text = f"Demo code for {lesson['title']}: {lesson['demo_code']}"
     play_audio(demo_audio_text, f"demo_audio_{lesson_number}")
     st.info("Copy this code and run it in your Python environment to see the output. You can also use online playgrounds like replit.com.")
