@@ -41,8 +41,29 @@ def set_coding_style():
         .main-header { background: linear-gradient(135deg, #f7971e, #ffd200); padding: 1.5rem; border-radius: 20px; text-align: center; margin-bottom: 1rem; }
         .main-header h1 { color: white; text-shadow: 2px 2px 4px #000000; font-size: 2.5rem; margin: 0; }
         .main-header p { color: #fff5cc; font-size: 1.2rem; margin: 0; }
-        html, body, .stApp, .stMarkdown, .stText, .stRadio label, .stSelectbox label, .stTextInput label, .stButton button, .stTitle, .stSubheader, .stHeader, .stCaption, .stAlert, .stException, .stCodeBlock, .stDataFrame, .stTable, .stTabs [role="tab"], .stTabs [role="tablist"] button, .stExpander, .stProgress > div, .stMetric label, .stMetric value, div, p, span, pre, code, .element-container, .stTextArea label, .stText p, .stText div, .stText span, .stText code { color: white !important; }
-        .stText { color: white !important; font-size: 1rem; background: transparent !important; }
+        html, body, .stApp, .stMarkdown, .stText, .stRadio label, .stSelectbox label, .stTextInput label, .stButton button, .stTitle, .stSubheader, .stHeader, .stCaption, .stAlert, .stException, .stCodeBlock, .stDataFrame, .stTable, .stTabs [role="tab"], .stTabs [role="tablist"] button, .stExpander, .stProgress > div, .stMetric label, .stMetric value, div, p, span, .element-container, .stTextArea label, .stText p, .stText div, .stText span, .stText code { color: white !important; }
+        /* Override for code blocks and inline code to be black on light background */
+        .stCodeBlock, .stCodeBlock pre, pre, code, .stCode {
+            background-color: #f4f4f4 !important;
+            color: #000000 !important;
+            border-radius: 10px;
+            padding: 0.2rem 0.4rem;
+            font-family: monospace;
+        }
+        .stCodeBlock pre, pre {
+            padding: 1rem;
+            overflow-x: auto;
+        }
+        .stCodeBlock code, pre code {
+            color: #000000 !important;
+            background-color: transparent !important;
+        }
+        .stText code {
+            background-color: #f4f4f4 !important;
+            color: #000000 !important;
+            padding: 0.2rem 0.4rem;
+            border-radius: 6px;
+        }
         .stTabs [role="tab"] { color: white !important; background: rgba(255,210,0,0.2); border-radius: 10px; margin: 0 2px; }
         .stTabs [role="tab"][aria-selected="true"] { background: #ffd200; color: black !important; }
         .stRadio [role="radiogroup"] label { background: rgba(255,255,255,0.15); border-radius: 10px; padding: 0.3rem; margin: 0.2rem 0; color: white !important; }
@@ -57,7 +78,6 @@ def set_coding_style():
         div[data-baseweb="popover"] ul { background-color: #203a43; border: 1px solid #ffd200; }
         div[data-baseweb="popover"] li { color: white !important; background-color: #203a43; }
         div[data-baseweb="popover"] li:hover { background-color: #f7971e; }
-        .code-block { background-color: #1e1e1e; border-radius: 10px; padding: 1rem; font-family: monospace; }
         </style>
     """, unsafe_allow_html=True)
 
@@ -225,7 +245,6 @@ demo_codes = [
 ]
 
 # For each lesson, generate 5 practice exercises (different each lesson)
-# We'll create a function that returns a list of exercise dicts based on lesson number
 def get_practice_exercises(lesson_num):
     exercises = []
     if lesson_num == 1:
@@ -268,18 +287,125 @@ def get_practice_exercises(lesson_num):
             {"desc": "Sum all numbers from 1 to 100 using a loop", "solution": "total = 0\nfor i in range(1, 101):\n    total += i\nprint(total)"},
             {"desc": "Print the multiplication table of a given number (1 to 10)", "solution": "num = int(input('Number: '))\nfor i in range(1, 11):\n    print(f'{num} x {i} = {num*i}')"}
         ]
-    # For brevity, I'll continue similarly for remaining lessons, but to keep code length reasonable,
-    # I'll generate generic exercises for lessons 6-20 that follow the pattern.
-    # In the final code, I will include all 20 lessons' exercises (they will be unique per lesson).
-    # For now, I'll show a template; the actual code will have full 20 sets.
-    else:
-        # Generic fallback: exercises relevant to the topic
+    elif lesson_num == 6:
         exercises = [
-            {"desc": f"Practice exercise 1 for lesson {lesson_num}", "solution": "# Write your code here"},
-            {"desc": f"Practice exercise 2 for lesson {lesson_num}", "solution": "# Write your code here"},
-            {"desc": f"Practice exercise 3 for lesson {lesson_num}", "solution": "# Write your code here"},
-            {"desc": f"Practice exercise 4 for lesson {lesson_num}", "solution": "# Write your code here"},
-            {"desc": f"Practice exercise 5 for lesson {lesson_num}", "solution": "# Write your code here"}
+            {"desc": "Create a list of three favorite movies and print the second one", "solution": "movies = ['Inception', 'Matrix', 'Avatar']\nprint(movies[1])"},
+            {"desc": "Add a new item to the list and print the entire list", "solution": "fruits = ['apple', 'banana']\nfruits.append('orange')\nprint(fruits)"},
+            {"desc": "Remove an item from the list by value", "solution": "colors = ['red', 'blue', 'green']\ncolors.remove('blue')\nprint(colors)"},
+            {"desc": "Sort a list of numbers in ascending order", "solution": "nums = [5, 2, 8, 1]\nnums.sort()\nprint(nums)"},
+            {"desc": "Find the length of a list", "solution": "items = [1, 2, 3, 4, 5]\nprint(len(items))"}
+        ]
+    elif lesson_num == 7:
+        exercises = [
+            {"desc": "Create a tuple with numbers 10, 20, 30 and print the first element", "solution": "tup = (10, 20, 30)\nprint(tup[0])"},
+            {"desc": "Create a dictionary with keys 'name', 'age' and print the name", "solution": "person = {'name': 'Maria', 'age': 25}\nprint(person['name'])"},
+            {"desc": "Add a new key-value pair to an existing dictionary", "solution": "person = {'name': 'John'}\nperson['city'] = 'New York'\nprint(person)"},
+            {"desc": "Check if a key exists in a dictionary", "solution": "d = {'a': 1, 'b': 2}\nif 'a' in d:\n    print('Exists')"},
+            {"desc": "Convert a list into a tuple", "solution": "my_list = [1, 2, 3]\nmy_tuple = tuple(my_list)\nprint(my_tuple)"}
+        ]
+    elif lesson_num == 8:
+        exercises = [
+            {"desc": "Define a function that prints 'Hello Function'", "solution": "def say_hello():\n    print('Hello Function')\nsay_hello()"},
+            {"desc": "Create a function that takes a name and prints 'Hello, [name]'", "solution": "def greet(name):\n    print(f'Hello, {name}')\ngreet('Anna')"},
+            {"desc": "Write a function that returns the square of a number", "solution": "def square(x):\n    return x * x\nprint(square(4))"},
+            {"desc": "Create a function with no arguments that returns the string 'Python'", "solution": "def get_lang():\n    return 'Python'\nprint(get_lang())"},
+            {"desc": "Call a function inside another function", "solution": "def add(a, b):\n    return a + b\ndef calculate():\n    return add(3, 4)\nprint(calculate())"}
+        ]
+    elif lesson_num == 9:
+        exercises = [
+            {"desc": "Define a function with two arguments that returns their product", "solution": "def multiply(a, b):\n    return a * b\nprint(multiply(4, 5))"},
+            {"desc": "Use a default argument: function greet(name='Guest')", "solution": "def greet(name='Guest'):\n    return f'Hello {name}'\nprint(greet())\nprint(greet('Gesner'))"},
+            {"desc": "Write a function that accepts any number of arguments using *args", "solution": "def sum_all(*args):\n    return sum(args)\nprint(sum_all(1, 2, 3, 4))"},
+            {"desc": "Use keyword arguments **kwargs to print a dictionary", "solution": "def print_info(**kwargs):\n    for key, value in kwargs.items():\n        print(f'{key}: {value}')\nprint_info(name='Gesner', age=35)"},
+            {"desc": "Return multiple values from a function", "solution": "def get_stats(a, b):\n    return a+b, a-b\nsum_val, diff = get_stats(10, 3)\nprint(sum_val, diff)"}
+        ]
+    elif lesson_num == 10:
+        exercises = [
+            {"desc": "Convert a string to uppercase", "solution": "text = 'python'\nprint(text.upper())"},
+            {"desc": "Remove whitespace from the beginning and end of a string", "solution": "text = '  hello  '\nprint(text.strip())"},
+            {"desc": "Replace 'cat' with 'dog' in a sentence", "solution": "sentence = 'I like cats'\nprint(sentence.replace('cat', 'dog'))"},
+            {"desc": "Split a sentence into words", "solution": "sentence = 'Hello world from Python'\nwords = sentence.split()\nprint(words)"},
+            {"desc": "Join a list of words with a space", "solution": "words = ['Join', 'these', 'words']\nprint(' '.join(words))"}
+        ]
+    elif lesson_num == 11:
+        exercises = [
+            {"desc": "Write 'Hello' to a file named 'test.txt'", "solution": "with open('test.txt', 'w') as f:\n    f.write('Hello')"},
+            {"desc": "Read the content of 'test.txt' and print it", "solution": "with open('test.txt', 'r') as f:\n    content = f.read()\n    print(content)"},
+            {"desc": "Append ' World' to the same file", "solution": "with open('test.txt', 'a') as f:\n    f.write(' World')"},
+            {"desc": "Count the number of lines in a file", "solution": "with open('test.txt', 'r') as f:\n    lines = f.readlines()\n    print(len(lines))"},
+            {"desc": "Write a list of strings to a file, each on a new line", "solution": "lines = ['line1', 'line2', 'line3']\nwith open('output.txt', 'w') as f:\n    for line in lines:\n        f.write(line + '\\n')"}
+        ]
+    elif lesson_num == 12:
+        exercises = [
+            {"desc": "Use try-except to handle division by zero", "solution": "try:\n    result = 10 / 0\nexcept ZeroDivisionError:\n    print('Cannot divide by zero')"},
+            {"desc": "Catch a ValueError when converting non-numeric string to int", "solution": "try:\n    num = int('abc')\nexcept ValueError:\n    print('Invalid number')"},
+            {"desc": "Use else clause when no exception occurs", "solution": "try:\n    num = int('5')\nexcept ValueError:\n    print('Error')\nelse:\n    print('Success:', num)"},
+            {"desc": "Use finally to always print 'Done'", "solution": "try:\n    x = 1 / 1\nexcept:\n    print('Error')\nfinally:\n    print('Done')"},
+            {"desc": "Raise a custom exception if a number is negative", "solution": "def check_positive(n):\n    if n < 0:\n        raise ValueError('Negative number')\n    return n\ntry:\n    check_positive(-5)\nexcept ValueError as e:\n    print(e)"}
+        ]
+    elif lesson_num == 13:
+        exercises = [
+            {"desc": "Import the math module and print pi", "solution": "import math\nprint(math.pi)"},
+            {"desc": "Use random.randint to generate a random number between 1 and 100", "solution": "import random\nprint(random.randint(1, 100))"},
+            {"desc": "Import only the sqrt function from math", "solution": "from math import sqrt\nprint(sqrt(16))"},
+            {"desc": "Create your own module (write a simple function in a separate file) - describe the steps", "solution": "# Save as mymodule.py with:\n# def hello(): print('Hello')\n# Then in main: import mymodule\n# mymodule.hello()"},
+            {"desc": "Use the datetime module to print today's date", "solution": "from datetime import date\nprint(date.today())"}
+        ]
+    elif lesson_num == 14:
+        exercises = [
+            {"desc": "Create a list of squares for numbers 1 to 5 using list comprehension", "solution": "squares = [x**2 for x in range(1, 6)]\nprint(squares)"},
+            {"desc": "Use list comprehension to filter even numbers from 1 to 10", "solution": "evens = [x for x in range(1, 11) if x % 2 == 0]\nprint(evens)"},
+            {"desc": "Write a lambda function that doubles a number", "solution": "double = lambda x: x * 2\nprint(double(5))"},
+            {"desc": "Use map with lambda to double all numbers in a list", "solution": "nums = [1, 2, 3]\ndoubled = list(map(lambda x: x*2, nums))\nprint(doubled)"},
+            {"desc": "Use filter with lambda to get numbers greater than 3", "solution": "nums = [1, 4, 2, 5, 3]\nfiltered = list(filter(lambda x: x > 3, nums))\nprint(filtered)"}
+        ]
+    elif lesson_num == 15:
+        exercises = [
+            {"desc": "Define a class 'Car' with attributes brand and model, and a method 'info' that prints them", "solution": "class Car:\n    def __init__(self, brand, model):\n        self.brand = brand\n        self.model = model\n    def info(self):\n        print(f'{self.brand} {self.model}')\nmy_car = Car('Toyota', 'Corolla')\nmy_car.info()"},
+            {"desc": "Create an instance of the Car class and call its method", "solution": "class Car:\n    def __init__(self, brand):\n        self.brand = brand\n    def honk(self):\n        print('Beep!')\nc = Car('Honda')\nc.honk()"},
+            {"desc": "Add a class variable 'wheels' set to 4 and access it", "solution": "class Vehicle:\n    wheels = 4\nprint(Vehicle.wheels)"},
+            {"desc": "Use __str__ method to return a readable string for the class", "solution": "class Person:\n    def __init__(self, name):\n        self.name = name\n    def __str__(self):\n        return f'Person: {self.name}'\np = Person('Gesner')\nprint(p)"},
+            {"desc": "Create a method that modifies an attribute", "solution": "class BankAccount:\n    def __init__(self, balance):\n        self.balance = balance\n    def deposit(self, amount):\n        self.balance += amount\nacc = BankAccount(100)\nacc.deposit(50)\nprint(acc.balance)"}
+        ]
+    elif lesson_num == 16:
+        exercises = [
+            {"desc": "Create a parent class Animal with method speak, and child class Dog that overrides speak", "solution": "class Animal:\n    def speak(self):\n        return 'Sound'\nclass Dog(Animal):\n    def speak(self):\n        return 'Woof'\nd = Dog()\nprint(d.speak())"},
+            {"desc": "Use super() to call parent method from child", "solution": "class Parent:\n    def greet(self):\n        return 'Hello from Parent'\nclass Child(Parent):\n    def greet(self):\n        return super().greet() + ' and Child'\nc = Child()\nprint(c.greet())"},
+            {"desc": "Create a class with inheritance and add a new method in child", "solution": "class Vehicle:\n    def start(self):\n        return 'Starting'\nclass Bike(Vehicle):\n    def ring_bell(self):\n        return 'Ring ring'\nb = Bike()\nprint(b.start(), b.ring_bell())"},
+            {"desc": "Multiple inheritance: create class C that inherits from A and B", "solution": "class A:\n    def a(self):\n        return 'A'\nclass B:\n    def b(self):\n        return 'B'\nclass C(A, B):\n    pass\nc = C()\nprint(c.a(), c.b())"},
+            {"desc": "Check if an object is an instance of a class", "solution": "class X:\n    pass\nobj = X()\nprint(isinstance(obj, X))"}
+        ]
+    elif lesson_num == 17:
+        exercises = [
+            {"desc": "Print the current date and time", "solution": "from datetime import datetime\nnow = datetime.now()\nprint(now)"},
+            {"desc": "Print only the current year", "solution": "from datetime import datetime\nprint(datetime.now().year)"},
+            {"desc": "Create a date object for your birthday", "solution": "from datetime import date\nbday = date(1990, 5, 15)\nprint(bday)"},
+            {"desc": "Calculate the difference between two dates", "solution": "from datetime import date\nd1 = date(2025, 1, 1)\nd2 = date(2025, 12, 31)\ndelta = d2 - d1\nprint(delta.days)"},
+            {"desc": "Format a date as 'Month Day, Year'", "solution": "from datetime import datetime\nnow = datetime.now()\nprint(now.strftime('%B %d, %Y'))"}
+        ]
+    elif lesson_num == 18:
+        exercises = [
+            {"desc": "Create a NumPy array from a list", "solution": "import numpy as np\narr = np.array([1, 2, 3])\nprint(arr)"},
+            {"desc": "Create a 2D NumPy array (matrix)", "solution": "import numpy as np\nmatrix = np.array([[1, 2], [3, 4]])\nprint(matrix)"},
+            {"desc": "Multiply all elements of a NumPy array by 2", "solution": "import numpy as np\narr = np.array([1, 2, 3])\nprint(arr * 2)"},
+            {"desc": "Compute the mean of a NumPy array", "solution": "import numpy as np\narr = np.array([10, 20, 30])\nprint(np.mean(arr))"},
+            {"desc": "Create an array of zeros with shape (3,4)", "solution": "import numpy as np\nzeros = np.zeros((3, 4))\nprint(zeros)"}
+        ]
+    elif lesson_num == 19:
+        exercises = [
+            {"desc": "Plot a simple line graph with x = [1,2,3] and y = [2,4,6]", "solution": "import matplotlib.pyplot as plt\nx = [1,2,3]\ny = [2,4,6]\nplt.plot(x, y)\nplt.show()"},
+            {"desc": "Add title and labels to a plot", "solution": "import matplotlib.pyplot as plt\nplt.plot([1,2,3], [1,4,9])\nplt.title('Squares')\nplt.xlabel('x')\nplt.ylabel('y')\nplt.show()"},
+            {"desc": "Create a bar chart", "solution": "import matplotlib.pyplot as plt\ncategories = ['A', 'B', 'C']\nvalues = [10, 20, 15]\nplt.bar(categories, values)\nplt.show()"},
+            {"desc": "Create a scatter plot", "solution": "import matplotlib.pyplot as plt\nx = [1,2,3,4]\ny = [2,3,5,7]\nplt.scatter(x, y)\nplt.show()"},
+            {"desc": "Save a plot as an image file", "solution": "import matplotlib.pyplot as plt\nplt.plot([1,2,3], [1,4,9])\nplt.savefig('plot.png')"}
+        ]
+    elif lesson_num == 20:
+        exercises = [
+            {"desc": "Build a calculator function that adds two numbers", "solution": "def add(a, b): return a + b"},
+            {"desc": "Build a calculator function that subtracts two numbers", "solution": "def subtract(a, b): return a - b"},
+            {"desc": "Build a calculator function that multiplies two numbers", "solution": "def multiply(a, b): return a * b"},
+            {"desc": "Build a calculator function that divides two numbers, handling division by zero", "solution": "def divide(a, b):\n    if b == 0:\n        return 'Error: division by zero'\n    return a / b"},
+            {"desc": "Create a menu-driven calculator that asks user for operation and numbers", "solution": "def calculator():\n    print('1. Add\\n2. Subtract\\n3. Multiply\\n4. Divide')\n    choice = input('Choose operation: ')\n    a = float(input('First number: '))\n    b = float(input('Second number: '))\n    if choice == '1':\n        print(a + b)\n    elif choice == '2':\n        print(a - b)\n    elif choice == '3':\n        print(a * b)\n    elif choice == '4':\n        if b != 0:\n            print(a / b)\n        else:\n            print('Cannot divide by zero')\n    else:\n        print('Invalid choice')\ncalculator()"}
         ]
     return exercises
 
@@ -326,11 +452,8 @@ with tab1:
     st.markdown("---")
     st.subheader("🎬 Demo Code")
     st.code(lesson['demo_code'], language="python")
-    st.markdown("**Output:**")
-    # For demo, we can show a simulated output (since exec is risky, we'll just show what the output would be)
-    # We'll manually map some outputs or just state "Run the code to see output"
-    st.info("Run this code in your Python environment to see the output. The book teaches you to write and run code locally.")
-    st.caption("Tip: Copy the code and paste it into a .py file or an online Python playground like replit.com.")
+    st.info("Copy this code and run it in your Python environment to see the output. You can also use online playgrounds like replit.com.")
+    st.caption("💡 Tip: Modify the code to experiment and deepen your understanding.")
 
 # ----- TAB 2: Practice Exercises -----
 with tab2:
@@ -347,8 +470,8 @@ with tab3:
     st.markdown("### 📝 Study Notes")
     st.markdown(f"""
     - **Lesson focus:** {lesson['title']}
-    - **Key concepts covered in this lesson:**
-        - {lesson['explanation'].split('**')[1] if '**' in lesson['explanation'] else 'Core concept'}
+    - **Key concepts covered:**  
+      {lesson['explanation'].split('**')[1] if '**' in lesson['explanation'] else lesson['explanation'][:100]}
     - **Next steps:** Practice the exercises and modify the demo code to experiment.
     - **Remember:** Coding is learned by doing. Write code every day!
     """)
